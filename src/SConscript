@@ -1,0 +1,4 @@
+Import('env')
+
+houdini_env = env.Clone()
+SConscript('houdini/SConscript', exports={'env':houdini_env})

@@ -1,0 +1,30 @@
+
+
+Import('env')
+
+lib_src = [
+			'VRAY_CurveDeform.cpp'
+			]
+
+env.Append(CPPPATH = ['/opt/hfs13.0.582/toolkit/include/'])
+#env.Append(CPPPATH = ['/home/jaideep/opensteer/include'])
+
+
+env.Append(CCFLAGS=['-DVERSION=\"13.0.582\"','-D_GNU_SOURCE','-DLINUX','-DAMD64','-m64','-fPIC','-DSIZEOF_VOID_P=8','-DFBX_ENABLED=1','-DOPENCL_ENABLED=1','-DOPENVDB_ENABLED=1','-DSESI_LITTLE_ENDIAN','-DENABLE_THREADS'])
+env.Append(CCFLAGS=['-DUSE_PTHREADS','-D_REENTRANT','-D_FILE_OFFSET_BITS=64','-c','-DGCC4','-DGCC3','-Wno-deprecated','-I/opt/hfs13.0.582/toolkit/include','-Wall','-W','-Wno-parentheses'])
+env.Append(CCFLAGS=['-Wno-sign-compare','-Wno-reorder','-Wno-uninitialized','-Wunused','-Wno-unused-parameter','-DUT_ASSERT_LEVEL=2','-fno-strict-aliasing','-DMAKING_DSO'])
+env.Append(CCFLAGS=['-Wno-attributes'])
+
+env.Append(LIBPATH = ['/usr/X11R6/lib64','/usr/X11R6/lib'])
+env.Append(LIBS = ['GLU','GL','X11','Xext','Xi','dl'])
+
+
+#env.Append(LIBPATH = ['../adapters','../utils','../../ops'])
+#env.Append(LIBPATH = ['/home/jaideep/opensteer/linux/objs_optimized'])
+#env.Append(LIBS = ['houdini_adapters','houdini_utils','ops'])
+
+env['STATIC_AND_SHARED_OBJECTS_ARE_THE_SAME']=1
+
+for file in lib_src:
+	lib_target = file.rstrip('.cpp')
+	lib = env.SharedLibrary(source =[ file], target = lib_target)
